@@ -27,7 +27,7 @@ public class RoadStatusServiceTests
     [Test]
     public async Task CanCheckStatusOfValidRoad()
     {
-        const string validRoadId = "Valid road Id";
+        const string validRoadId = "a2";
         var roadStatus = new RoadStatus.Domain.Aggregates.RoadStatus("a2", "A2", "Good", "No Exceptional Delays");
 
         _roadService.Setup(r =>r.GetRoadStatusAsync(validRoadId)).Returns(
@@ -36,6 +36,8 @@ public class RoadStatusServiceTests
 
         var result = await _service.CheckStatus(validRoadId);
 
+        _roadService.Verify(r => r.GetRoadStatusAsync(validRoadId), Times.Once);
+        
         var expectedLines = new List<string>
         {
             $"The status of the {roadStatus.DisplayName} is as follows",
@@ -43,7 +45,6 @@ public class RoadStatusServiceTests
             $"\tRoad Status Description is {roadStatus.StatusDescription}"
         };
 
-        _roadService.Verify(r => r.GetRoadStatusAsync(validRoadId), Times.Once);
         Assert.Multiple(() =>
         {
             Assert.That(_lines.SequenceEqual(expectedLines));
@@ -60,10 +61,18 @@ public class RoadStatusServiceTests
         );
 
         var result = await _service.CheckStatus(invalidRoadId);
-
-        const string expectedOutput = $"{invalidRoadId} is not a valid road";
-        _output.Verify(o => o.WriteLine(expectedOutput), Times.Once);
+        
         _roadService.Verify(r => r.GetRoadStatusAsync(invalidRoadId), Times.Once);
-        Assert.That(result, Is.EqualTo(false));
+
+        var expectedLines = new List<string>
+        {
+            $"{invalidRoadId} is not a valid road"
+        };
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(_lines.SequenceEqual(expectedLines));
+            Assert.That(result, Is.EqualTo(false));
+        });
     }
 }
