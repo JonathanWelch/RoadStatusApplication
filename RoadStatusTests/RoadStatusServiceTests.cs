@@ -44,9 +44,11 @@ public class RoadStatusServiceTests
         };
 
         _roadService.Verify(r => r.GetRoadStatusAsync(validRoadId), Times.Once);
-
-        Assert.IsTrue(_lines.SequenceEqual(expectedLines));
-        Assert.That(result, Is.EqualTo(true));
+        Assert.Multiple(() =>
+        {
+            Assert.That(_lines.SequenceEqual(expectedLines));
+            Assert.That(result, Is.EqualTo(true));
+        });
     }
 
     [Test]
