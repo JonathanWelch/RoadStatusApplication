@@ -9,7 +9,7 @@ namespace RoadStatus;
 
 internal class Program
 {
-    static async Task<int> Main(string[] args)
+    private static async Task<int> Main(string[] args)
     {
         try
         {
