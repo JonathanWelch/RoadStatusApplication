@@ -1,14 +1,11 @@
 # Road Status Application
-Example solution, written in C#, for retrieving and displaying the status of major roads managed by TfL.
+Example C# solution for retrieving and displaying the status of major roads managed by TfL (Transport for London).  Below are the key details about the solution:
 
-The solution was created using Microsoft Visual Studio 2002 (version **17.5.1** of the 64 bit Community version).  It contains three projects that target the framework **.NET 7.0**.
-
-The extension **SpecFlow for Visual Studio 2022** is required for the **RoadStatusSpecs** project. Version **2022.1.91.26832** was used during development.    
-
-The solution can be built using Visual Studio.
+### Solution Overview
+Developed using Microsoft Visual Studio 2022, specifically version 17.5.1 of the 64-bit Community edition. It requires the SpecFlow extension for Visual Studio 2022, with version 2022.1.91.26832 used during development. The solution consists of three projects targeting the .NET 7.0 framework and can be easily built using Visual Studio.
 
 #### Configuring the TfL API 
-Two application configuration settings have been included to store the details of the Application ID and API key for the TfL API.  They can be found in the **appsettings.json** file in the root folder of the **RoadStatus** project.  An extract of these settings is shown below:
+The application includes two important configuration settings: Application ID and API key for the TfL API. These settings are stored in the appsettings.json file located in the root folder of the RoadStatus project.
 
     "AppSettings": {
     	"ApplicationId": "",
@@ -16,22 +13,27 @@ Two application configuration settings have been included to store the details o
 		...
 	}
 
-### How to run the application
-There are different options available for running the Console Application, which include:
+### How to Run the Application
+You can run the Console Application using the following methods:
 
 #### Visual Studio
-The application can be run inside Visual Studio.  The **RoadStatus** project has been set as the Startup project with `a2` also specified as the command line arguments in the projects debug properties, which results in the application retrieving and displaying the status of the `a2` road.   
+The RoadStatus project is set as the Startup project. Specify the desired road (e.g., "a2") as command line arguments in the project's debug properties. This allows you to easily retrieve and display the status of the specified road when running the application.
 
 #### Windows Powershell
-The command `.\RoadStatus.exe a2` can be used to execute the application in the command line to see the status of the `a2` road. 
+Execute the application in the command line using the following command: 
 
-The exit code of the application can be seen using the command `echo $lastexitcode`
+	.\RoadStatus.exe a2
 
-### How to run the tests
+To check the application's exit code, use the command: 
 
-During development the ReSharper test runner was used to execute the nunit tests in the two test projects **RoadStatusTests** and **RoadStatusSpecs**.  An alternate approach would be to use Visual Studio's Test Explorer. 
+	echo $lastexitcode
 
+### How to Run the Tests
+During development, the ReSharper test runner was used to execute the NUnit tests in the RoadStatusTests and RoadStatusSpecs projects.  Alternatively, you can use Visual Studio's Test Explorer to run these tests. 
 
-### Assumptions and future enhancements
-Changes could be made to have a more specific message written to the console when an exception has occurred retrieving the road status from the TfL API.
+The unit tests are located in the RoadStatusTests project, while BDD-style acceptance tests, implemented with SpecFlow, are found in the RoadStatusSpecs project.
 
+### Assumptions and Future Enhancements
+In the acceptance tests, the RoadStatusService is executed directly, not the Console application. Consequently, there's no assertion to validate the specific exit code of the Console application. A potential future enhancement could include this coverage. 
+
+Another future enhancement would be to have a more detailed message written to the console when an exception has occurred retrieving the road status from the TfL API.  Currently, the application displays a generic invalid road message.
