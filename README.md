@@ -5,13 +5,13 @@ Example C# solution for retrieving and displaying the status of major roads mana
 Developed using Microsoft Visual Studio 2022, specifically version 17.5.1 of the 64-bit Community edition. It requires the SpecFlow extension for Visual Studio 2022, with version 2022.1.91.26832 used during development. The solution consists of three projects targeting the .NET 7.0 framework and can be easily built using Visual Studio.
 
 #### Configuring the TfL API 
-The application includes two important configuration settings: Application ID and API key for the TfL API. These settings are stored in the appsettings.json file located in the root folder of the RoadStatus project.
+The application includes two important configuration settings: Application ID and API key for the TfL API. These settings are stored in the appsettings.json file located in the root folder of the RoadStatus project.  These can be set accordingly.
 
     "AppSettings": {
     	"ApplicationId": "",
     	"ApiKey": "",
 		...
-	}
+	} 
 
 ### How to Run the Application
 You can run the Console Application using the following methods:
